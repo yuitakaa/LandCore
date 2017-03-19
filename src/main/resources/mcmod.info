@@ -1,0 +1,16 @@
+[
+{
+  "modid": "landcore",
+  "name": "LandCore",
+  "description": "Core mod for many of Landmaster's mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://minecraft.curseforge.com/projects/landcore",
+  "updateUrl": "https://minecraft.curseforge.com/projects/landcore/files",
+  "authorList": ["Landmaster (phuong0429)"],
+  "credits": "",
+  "logoFile": "assets/mcfmt/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
