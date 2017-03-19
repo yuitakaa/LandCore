@@ -1,0 +1,19 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+    },
+    "variants": {
+        "type=thorium": {
+            "model": "cube_all",
+            "textures": {
+            	"all": "landcore:blocks/thoriumblock"
+            }
+        },
+        "type=tungsten": {
+            "model": "cube_all",
+            "textures": {
+            	"all": "landcore:blocks/tungstenblock"
+            }
+        }
+    }
+}
