@@ -20,6 +20,8 @@ item.item_tungsten_axe.name=Tungsten Axe
 item.item_tungsten_shovel.name=Tungsten Shovel
 item.item_tungsten_hoe.name=Tungsten Hoe
 
+item.item_energy_wand.name=Energy Wand
+
 item.item_thorium_helmet.name=Thorium Helmet
 item.item_thorium_chestplate.name=Thorium Chestplate
 item.item_thorium_leggings.name=Thorium Leggings
@@ -29,3 +31,5 @@ item.item_tungsten_helmet.name=Tungsten Helmet
 item.item_tungsten_chestplate.name=Tungsten Chestplate
 item.item_tungsten_leggings.name=Tungsten Leggings
 item.item_tungsten_boots.name=Tungsten Boots
+
+tooltip.item_energy_wand.info=Right-click to fire at your enemies!

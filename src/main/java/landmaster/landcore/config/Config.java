@@ -10,6 +10,8 @@ public class Config extends Configuration {
 	public static boolean thoriumArmor;
 	public static boolean tungstenArmor;
 	
+	public static boolean energyWand;
+	
 	public Config(FMLPreInitializationEvent event) {
 		super(event.getSuggestedConfigurationFile());
 	}
@@ -20,6 +22,8 @@ public class Config extends Configuration {
 		
 		thoriumArmor = getBoolean("Enable Thorium armor", "armor", true, "Enable Thorium armor");
 		tungstenArmor = getBoolean("Enable Tungsten armor", "armor", true, "Enable Tungsten armor");
+		
+		energyWand = getBoolean("Enable Energy wand", "tools", true, "Enable Energy wand");
 		
 		if (hasChanged()) save();
 	}

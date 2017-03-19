@@ -37,6 +37,7 @@ public class LandCore {
 	public static final BlockMetal blockMetal = new BlockMetal();
 	
 	public static final ItemIngot itemIngot = new ItemIngot();
+	public static final ItemEnergyWand itemEnergyWand = new ItemEnergyWand();
 	
 	public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
 		@Override
@@ -146,6 +147,11 @@ public class LandCore {
 				}
 			}
 		}
+		
+		if (Config.energyWand) {
+			GameRegistry.register(itemEnergyWand);
+			proxy.registerItemRenderer(itemEnergyWand, -1, "tool/energywand");
+		}
 	}
 	
 	private void initArmor() {
@@ -173,6 +179,12 @@ public class LandCore {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		if (Config.energyWand) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemEnergyWand),
+					"T", "D", "W",
+					'T', "ingotThorium", 'D', "gemDiamond", 'W', "ingotTungsten"));
+		}
+		
 		for (int i=0; i<OreType.values().length; ++i) {
 			final String ingotName = "ingot"+StringUtils.capitalize(OreType.values()[i].toString());
 			

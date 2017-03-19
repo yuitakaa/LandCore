@@ -13,6 +13,12 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id, String variant) {
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(LandCore.MODID + ":" + id, variant));
+		ModelResourceLocation rl = new ModelResourceLocation(LandCore.MODID + ":" + id, variant);
+		if (meta >= 0)  {
+			ModelLoader.setCustomModelResourceLocation(item, meta, rl);
+		} else {
+			ModelLoader.setCustomMeshDefinition(item, stack -> rl);
+			ModelBakery.registerItemVariants(item, rl);
+		}
 	}
 }
