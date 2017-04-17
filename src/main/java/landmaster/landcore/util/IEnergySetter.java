@@ -1,7 +1,7 @@
 package landmaster.landcore.util;
 
-import net.minecraft.util.*;
+import net.minecraft.item.*;
 
 public interface IEnergySetter {
-	void setEnergyStored(EnumFacing from, int energy);
+	void setEnergyStored(ItemStack is, int energy);
 }

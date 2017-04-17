@@ -2,9 +2,8 @@ package landmaster.landcore.item;
 
 import java.util.*;
 
-import cofh.api.energy.*;
 import landmaster.landcore.*;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resources.*;
 import net.minecraft.creativetab.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.*;
@@ -16,8 +15,8 @@ import net.minecraft.util.text.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
-public class ItemEnergyWand extends ItemEnergyContainer {
-	public static final int CAP = 60000;
+public class ItemEnergyWand extends ItemEnergyBase {
+	public static final int CAP = 120000;
 	public static final int MAX_INPUT = 150;
 	public static final int ENERGY_COST = 600;
 	
