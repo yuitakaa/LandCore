@@ -25,7 +25,7 @@ import net.minecraftforge.oredict.*;
 public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
-	public static final String VERSION = "1.1";
+	public static final String VERSION = "1.2.0.0";
 	public static final String DEPENDS = "";
 	
 	@SidedProxy(serverSide = "landmaster.landcore.proxy.CommonProxy", clientSide = "landmaster.landcore.proxy.ClientProxy")
@@ -33,18 +33,18 @@ public class LandCore {
 	
 	public static Config config;
 	
-	public static final BlockOre blockOre = new BlockOre();
-	public static final BlockMetal blockMetal = new BlockMetal();
-	
-	public static final ItemIngot itemIngot = new ItemIngot();
-	public static final ItemEnergyWand itemEnergyWand = new ItemEnergyWand();
-	
 	public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
 		@Override
 		public Item getTabIconItem() {
 			return itemIngot;
 		}
 	};
+	
+	public static final BlockOre blockOre = new BlockOre();
+	public static final BlockMetal blockMetal = new BlockMetal();
+	
+	public static final ItemIngot itemIngot = new ItemIngot();
+	public static final ItemEnergyWand itemEnergyWand = new ItemEnergyWand();
 	
 	public static final Item.ToolMaterial thoriumToolMaterial = EnumHelper.addToolMaterial("THORIUM", 2, 500, 6.5f, 2.5f, 17);
 	public static final Item.ToolMaterial tungstenToolMaterial = EnumHelper.addToolMaterial("TUNGSTEN", 2, 700, 9.0f, 2.75f, 15);
@@ -60,6 +60,8 @@ public class LandCore {
 	public static final ItemModAxe tungstenAxe = new ItemModAxe(tungstenToolMaterial, 8.0f, -3.1f, "item_tungsten_axe");
 	public static final ItemModShovel tungstenShovel = new ItemModShovel(tungstenToolMaterial, "item_tungsten_shovel");
 	public static final ItemModHoe tungstenHoe = new ItemModHoe(tungstenToolMaterial, "item_tungsten_hoe");
+	
+	public static final ItemModBow landiumBow = new ItemModBow(5, 1500, 3f, 8, "item_landium_bow");
 	
 	public static final ItemArmor.ArmorMaterial thoriumArmorMaterial = EnumHelper.addArmorMaterial(
 			"THORIUM", MODID+":thorium", 19, new int[] {2,7,6,2},
@@ -134,6 +136,7 @@ public class LandCore {
 		toolItems.add(Config.tungstenTools
 				? Arrays.asList(tungstenSword, tungstenPick, tungstenAxe, tungstenShovel, tungstenHoe)
 						: null);
+		toolItems.add(null);
 		
 		{
 			OreType[] values = OreType.values();
@@ -152,6 +155,11 @@ public class LandCore {
 			GameRegistry.register(itemEnergyWand);
 			proxy.registerItemRenderer(itemEnergyWand, -1, "tool/energywand");
 		}
+		
+		if (Config.landiumBow) {
+			GameRegistry.register(landiumBow);
+			proxy.registerItemRenderer(landiumBow, -1, "tool/landiumbow");
+		}
 	}
 	
 	private void initArmor() {
@@ -161,6 +169,7 @@ public class LandCore {
 		armorItems.add(Config.tungstenArmor
 				? Arrays.asList(tungstenHelmet, tungstenChestplate, tungstenLeggings, tungstenBoots)
 						: null);
+		armorItems.add(null);
 		
 		{
 			OreType[] values = OreType.values();
@@ -183,6 +192,12 @@ public class LandCore {
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemEnergyWand),
 					"T", "D", "W",
 					'T', "ingotThorium", 'D', "gemDiamond", 'W', "ingotTungsten"));
+		}
+		
+		if (Config.landiumBow) {
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landiumBow),
+					" IS", "I S", " IS",
+					'I', "ingotLandium", 'S', Items.STRING));
 		}
 		
 		for (int i=0; i<OreType.values().length; ++i) {

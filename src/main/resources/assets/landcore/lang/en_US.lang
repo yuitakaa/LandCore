@@ -2,11 +2,15 @@ itemGroup.landcore=LandCore
 
 tile.block_ore.thorium.name=Thorium Ore
 tile.block_ore.tungsten.name=Tungsten Ore
+tile.block_ore.landium.name=Landium Ore
+
 tile.block_metal.thorium.name=Block of Thorium
 tile.block_metal.tungsten.name=Block of Tungsten
+tile.block_metal.landium.name=Block of Landium
 
 item.item_ingot.thorium.name=Thorium Ingot
 item.item_ingot.tungsten.name=Tungsten Ingot
+item.item_ingot.landium.name=Landium Ingot
 
 item.item_thorium_sword.name=Thorium Sword
 item.item_thorium_pickaxe.name=Thorium Pickaxe
@@ -22,6 +26,8 @@ item.item_tungsten_hoe.name=Tungsten Hoe
 
 item.item_energy_wand.name=Energy Wand
 
+item.item_landium_bow.name=Landium Bow
+
 item.item_thorium_helmet.name=Thorium Helmet
 item.item_thorium_chestplate.name=Thorium Chestplate
 item.item_thorium_leggings.name=Thorium Leggings
@@ -33,3 +39,4 @@ item.item_tungsten_leggings.name=Tungsten Leggings
 item.item_tungsten_boots.name=Tungsten Boots
 
 tooltip.item_energy_wand.info=Right-click to fire at your enemies!
+tooltip.landcore.bow.bonus=Bonus Damage: %f

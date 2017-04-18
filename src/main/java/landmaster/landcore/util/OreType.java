@@ -5,7 +5,7 @@ import java.util.*;
 import net.minecraft.util.*;
 
 public enum OreType implements IStringSerializable {
-	THORIUM, TUNGSTEN;
+	THORIUM, TUNGSTEN, LANDIUM;
 
 	@Override
 	public String getName() {

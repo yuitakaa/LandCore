@@ -14,6 +14,12 @@
             "textures": {
             	"all": "landcore:blocks/tungstenore"
             }
+        },
+        "type=landium": {
+        	"model": "cube_all",
+            "textures": {
+            	"all": "landcore:blocks/landiumore"
+            }
         }
     }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "item/bow",
+  "textures": {
+    "layer0": "landcore:items/tools/landiumbow_pulling_0"
+  }
+}
