@@ -65,11 +65,6 @@ public class ItemModBow extends ItemBow {
 		return EnumRarity.RARE;
 	}
 	
-	@Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-		return true;
-	}
-	
     public ItemStack findAmmo(EntityPlayer player) {
         return this.isArrow(player.getHeldItem(EnumHand.OFF_HAND)) ?
         		player.getHeldItem(EnumHand.OFF_HAND) :
