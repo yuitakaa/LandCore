@@ -6,14 +6,17 @@ import org.apache.commons.lang3.StringUtils;
 
 import landmaster.landcore.block.*;
 import landmaster.landcore.config.*;
+import landmaster.landcore.entity.*;
 import landmaster.landcore.item.*;
 import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
 import net.minecraft.creativetab.*;
+import net.minecraft.entity.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
+import net.minecraftforge.common.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.*;
@@ -27,6 +30,9 @@ public class LandCore {
 	public static final String NAME = "LandCore";
 	public static final String VERSION = "1.2.0.1";
 	public static final String DEPENDS = "";
+	
+	@Mod.Instance(MODID)
+	public static LandCore INSTANCE;
 	
 	@SidedProxy(serverSide = "landmaster.landcore.proxy.CommonProxy", clientSide = "landmaster.landcore.proxy.ClientProxy")
 	public static CommonProxy proxy;
@@ -98,6 +104,8 @@ public class LandCore {
 		initMetals();
 		initTools();
 		initArmor();
+		
+		proxy.preInitEntities();
 		
 		GameRegistry.registerWorldGenerator(new WorldGen(), 3);
 	}
@@ -244,6 +252,13 @@ public class LandCore {
 						"I I", "I I",
 						'I', ingotName));
 			}
+		}
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		if (Config.spawnLandlord) {
+			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER));
 		}
 	}
 }

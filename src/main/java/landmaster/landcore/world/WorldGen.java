@@ -6,6 +6,7 @@ import com.google.common.base.*;
 
 import landmaster.landcore.*;
 import landmaster.landcore.block.*;
+import landmaster.landcore.config.*;
 import landmaster.landcore.util.*;
 import net.minecraft.block.state.*;
 import net.minecraft.block.state.pattern.*;
@@ -33,11 +34,11 @@ public class WorldGen implements IWorldGenerator {
 		generateOre(
 				LandCore.blockOre.getDefaultState()
 				.withProperty(BlockOre.TYPE, OreType.THORIUM),
-				world, random, chunkX*16, chunkZ*16, 10, 52, 4, 7, 9);
+				world, random, chunkX*16, chunkZ*16, 10, 52, 4, 7, Config.thoriumAmount);
 		generateOre(
 				LandCore.blockOre.getDefaultState()
 				.withProperty(BlockOre.TYPE, OreType.TUNGSTEN),
-				world, random, chunkX*16, chunkZ*16, 10, 37, 3, 6, 8);
+				world, random, chunkX*16, chunkZ*16, 10, 37, 3, 6, Config.tungstenAmount);
 	}
 	
 	private void generateNetherOres(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -45,7 +46,7 @@ public class WorldGen implements IWorldGenerator {
 				LandCore.blockOre.getDefaultState()
 				.withProperty(BlockOre.TYPE, OreType.LANDIUM),
 				world, BlockMatcher.forBlock(Blocks.NETHERRACK),
-				random, chunkX*16, chunkZ*16, 7, 117, 2, 4, 10);
+				random, chunkX*16, chunkZ*16, 7, 117, 1, 4, Config.landiumAmount);
 	}
 	
 	private void generateOre(IBlockState ore, World world, Random random, int x, int z, int minY, int maxY, int minSize, int maxSize, int chances) {

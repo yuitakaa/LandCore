@@ -1,5 +1,7 @@
 itemGroup.landcore=LandCore
 
+entity.landcore.landlord.name=Landlord
+
 tile.block_ore.thorium.name=Thorium Ore
 tile.block_ore.tungsten.name=Tungsten Ore
 tile.block_ore.landium.name=Landium Ore

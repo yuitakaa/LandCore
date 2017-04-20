@@ -13,6 +13,10 @@ public class Config extends Configuration {
 	public static boolean energyWand;
 	public static boolean landiumBow;
 	
+	public static int thoriumAmount, tungstenAmount, landiumAmount;
+	
+	public static boolean spawnLandlord;
+	
 	public Config(FMLPreInitializationEvent event) {
 		super(event.getSuggestedConfigurationFile());
 	}
@@ -26,6 +30,12 @@ public class Config extends Configuration {
 		
 		energyWand = getBoolean("Enable Energy wand", "tools", true, "Enable Energy wand");
 		landiumBow = getBoolean("Enable Landium bow", "tools", true, "Enable Landium bow");
+		
+		thoriumAmount = getInt("Thorium veins per chunk", "generation", 9, 0, Integer.MAX_VALUE, "Thorium veins per chunk");
+		tungstenAmount = getInt("Tungsten veins per chunk", "generation", 8, 0, Integer.MAX_VALUE, "Thorium veins per chunk");
+		landiumAmount = getInt("Landium veins per chunk", "generation", 20, 0, Integer.MAX_VALUE, "Landium veins per chunk");
+		
+		spawnLandlord = getBoolean("Spawn Landlord", "spawn", true, "Enable Landlord spawn");
 		
 		if (hasChanged()) save();
 	}
