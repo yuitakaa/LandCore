@@ -7,7 +7,6 @@ import com.google.common.base.*;
 
 import net.minecraft.world.biome.*;
 import net.minecraftforge.common.*;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class Utils {
 	@SuppressWarnings("unchecked")
@@ -23,17 +22,13 @@ public class Utils {
 		}
 	}
 	
-	public static String mcVersion() {
-		return FMLCommonHandler.instance().getMinecraftServerInstance().getMinecraftVersion();
-	}
-	
 	private static final Method getBiomesImplM;
 	static {
 		try {
 			Method temp;
 			try {
 				temp = BiomeDictionary.class.getMethod("getBiomes", BiomeDictionary.Type.class);
-			} catch (NoSuchMethodError error) {
+			} catch (NoSuchMethodException error) {
 				temp = BiomeDictionary.class.getMethod("getBiomesForType", BiomeDictionary.Type.class);
 			}
 			getBiomesImplM = temp;
