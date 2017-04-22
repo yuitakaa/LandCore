@@ -23,7 +23,7 @@ public class ItemIngot extends CompatItem {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	protected void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		for (int i=0; i<OreType.values().length; ++i) {
 			subItems.add(new ItemStack(itemIn, 1, i));
 		}

@@ -50,7 +50,7 @@ public class BlockMetal extends CompatBlock implements IMetaBlockName {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
 		for (int i=0; i<OreType.values().length; ++i) {
 			list.add(new ItemStack(itemIn, 1, i));
 		}

@@ -1,6 +1,5 @@
 package landmaster.landcore.item;
 
-import cofh.api.energy.*;
 import landmaster.landcore.util.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
@@ -9,7 +8,7 @@ import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.energy.*;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class ItemEnergyBase extends ItemEnergyContainer implements IEnergySetter {
+public class ItemEnergyBase extends CompatItemEnergyContainer implements IEnergySetter {
 	private class Energy implements IEnergyStorage {
 		ItemStack is;
 		public Energy(ItemStack is) {

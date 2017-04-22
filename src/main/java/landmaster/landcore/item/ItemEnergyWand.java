@@ -43,21 +43,21 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-		if (extractEnergy(itemStackIn, ENERGY_COST, true) < ENERGY_COST) {
-			return new ActionResult<>(EnumActionResult.FAIL, itemStackIn);
+	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+		if (extractEnergy(playerIn.getHeldItem(hand), ENERGY_COST, true) < ENERGY_COST) {
+			return new ActionResult<>(EnumActionResult.FAIL, playerIn.getHeldItem(hand));
 		}
-		extractEnergy(itemStackIn, ENERGY_COST, false);
+		extractEnergy(playerIn.getHeldItem(hand), ENERGY_COST, false);
 		Vec3d vec = playerIn.getLookVec().scale(10);
 		EntityFireball efb = new EntitySmallFireball(worldIn, playerIn, vec.xCoord, vec.yCoord, vec.zCoord);
 		efb.posY += 1.0;
 		worldIn.spawnEntityInWorld(efb);
-		return new ActionResult<>(EnumActionResult.SUCCESS, itemStackIn);
+		return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void getSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	protected void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
 		ItemStack empty = new ItemStack(this), full = empty.copy();
 		full.setTagCompound(new NBTTagCompound());
 		full.getTagCompound().setInteger("Energy", CAP);
