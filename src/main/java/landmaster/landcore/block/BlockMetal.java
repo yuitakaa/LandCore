@@ -4,7 +4,7 @@ import java.util.*;
 
 import landmaster.landcore.*;
 import landmaster.landcore.util.*;
-import net.minecraft.block.*;
+import mcjty.lib.compat.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
@@ -15,7 +15,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
-public class BlockMetal extends Block implements IMetaBlockName {
+public class BlockMetal extends CompatBlock implements IMetaBlockName {
 	public static final PropertyEnum<OreType> TYPE = PropertyEnum.create("type", OreType.class);
 	
 	public BlockMetal() {

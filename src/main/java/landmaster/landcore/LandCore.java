@@ -11,7 +11,7 @@ import landmaster.landcore.item.*;
 import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
-import net.minecraft.creativetab.*;
+import mcjty.lib.compat.*;
 import net.minecraft.entity.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
@@ -24,12 +24,12 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.*;
 import net.minecraftforge.oredict.*;
 
-@Mod(modid = LandCore.MODID, name = LandCore.NAME, version = LandCore.VERSION, dependencies = LandCore.DEPENDS)
+@Mod(modid = LandCore.MODID, name = LandCore.NAME, version = LandCore.VERSION, dependencies = LandCore.DEPENDS, useMetadata = true, acceptedMinecraftVersions = "[1.9,1.12)")
 public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
 	public static final String VERSION = "1.3.0.0";
-	public static final String DEPENDS = "";
+	public static final String DEPENDS = "required-after:compatlayer";
 	
 	@Mod.Instance(MODID)
 	public static LandCore INSTANCE;
@@ -39,9 +39,9 @@ public class LandCore {
 	
 	public static Config config;
 	
-	public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
+	public static final CompatCreativeTabs creativeTab = new CompatCreativeTabs(MODID) {
 		@Override
-		public Item getTabIconItem() {
+		public Item getItem() {
 			return itemIngot;
 		}
 	};
@@ -258,7 +258,7 @@ public class LandCore {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if (Config.spawnLandlord) {
-			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER));
+			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, Utils.getBiomesForType(BiomeDictionary.Type.NETHER));
 		}
 	}
 }

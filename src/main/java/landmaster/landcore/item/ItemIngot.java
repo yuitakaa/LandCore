@@ -4,11 +4,12 @@ import java.util.*;
 
 import landmaster.landcore.*;
 import landmaster.landcore.util.*;
+import mcjty.lib.compat.*;
 import net.minecraft.creativetab.*;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
 
-public class ItemIngot extends Item {
+public class ItemIngot extends CompatItem {
 	public ItemIngot() {
 		setHasSubtypes(true);
 		setUnlocalizedName("item_ingot").setRegistryName("item_ingot");
