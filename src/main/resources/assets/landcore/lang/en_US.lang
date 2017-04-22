@@ -43,3 +43,7 @@ item.item_tungsten_boots.name=Tungsten Boots
 
 tooltip.item_energy_wand.info=Right-click to fire at your enemies!
 tooltip.landcore.bow.bonus=Bonus Damage: %f
+
+message.command.wrongargs=Wrong number of arguments
+message.command.wrongnumber=Cannot parse number
+message.command.noteleport=Cannot teleport: not enough space
