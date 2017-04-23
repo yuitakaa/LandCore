@@ -1,10 +1,11 @@
 package landmaster.landcore.item;
 
 import landmaster.landcore.block.*;
+import mcjty.lib.compat.*;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 
-public class ItemBlockMeta extends ItemBlock {
+public class ItemBlockMeta extends CompatItemBlock {
 	public ItemBlockMeta(Block block) {
 		super(block);
 		if (!(block instanceof IMetaBlockName)) {

@@ -40,6 +40,7 @@ public class ClientProxy extends CommonProxy {
 		super.preInitEntities();
 		
 		RenderingRegistry.registerEntityRenderingHandler(EntityLandlord.class, RenderEntityLandlord.FACTORY);
+		RenderingRegistry.registerEntityRenderingHandler(EntityLandlordMagicFireball.class, RenderEntityLandlordMagicFireball.FACTORY);
 	}
 	
 	@SubscribeEvent(priority = EventPriority.LOW)

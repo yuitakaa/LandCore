@@ -207,7 +207,7 @@ public class EntityLandlord extends EntityMob {
 
                         for (int i = 0; i < 1; ++i)
                         {
-                        	EntitySmallFireball fireball = new EntitySmallFireball(this.landlord.getEntityWorld(), this.landlord, d1 + this.landlord.getRNG().nextGaussian() * (double)f, d2, d3 + this.landlord.getRNG().nextGaussian() * (double)f);
+                        	EntityFireball fireball = new EntityLandlordMagicFireball(this.landlord.getEntityWorld(), this.landlord, d1 + this.landlord.getRNG().nextGaussian() * (double)f, d2, d3 + this.landlord.getRNG().nextGaussian() * (double)f);
                             fireball.posY = this.landlord.posY + (double)(this.landlord.height / 2.0F) + 0.5D;
                             this.landlord.getEntityWorld().spawnEntityInWorld(fireball);
                         }

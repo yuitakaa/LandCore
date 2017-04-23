@@ -30,7 +30,7 @@ import net.minecraftforge.oredict.*;
 public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
-	public static final String VERSION = "1.3.1.0";
+	public static final String VERSION = "1.3.2.0";
 	public static final String DEPENDS = "required-after:compatlayer";
 	
 	@Mod.Instance(MODID)
