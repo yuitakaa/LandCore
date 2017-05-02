@@ -45,8 +45,13 @@ item.item_tungsten_leggings.name=Tungsten Leggings
 item.item_tungsten_boots.name=Tungsten Boots
 
 tooltip.item_energy_wand.info=Right-click to fire at your enemies!
+tooltip.item_energy_wand.mode=Mode: %s§r (Shift-right-click to change)
 tooltip.landcore.bow.bonus=Bonus Damage: %f
 
+wandmode.normal=§4Normal
+wandmode.magic=§dMagic
+
+message.wand.change=Changed mode to %s
 message.command.wrongargs=Wrong number of arguments
 message.command.wrongnumber=Cannot parse number
 message.command.noteleport=Cannot teleport: not enough space

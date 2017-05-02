@@ -15,7 +15,7 @@ public class TeleportCommand extends CompatCommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (args.length != 4) {
-			throw new WrongUsageException("message.command.wrongargs");
+			throw new WrongUsageException(this.getCommandUsage(sender));
 		}
 		if (sender instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP)sender;
@@ -27,7 +27,7 @@ public class TeleportCommand extends CompatCommandBase {
 					throw new CommandException("message.command.noteleport");
 				}
 			} catch (NumberFormatException e) {
-				throw new WrongUsageException("message.command.wrongnumber");
+				throw new WrongUsageException(this.getCommandUsage(sender));
 			}
 		}
 	}
