@@ -1,16 +1,13 @@
-package landmaster.landcore.item;
+package landmaster.landcore.api.item;
 
-import landmaster.landcore.block.*;
+import landmaster.landcore.api.block.*;
 import mcjty.lib.compat.*;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
 
 public class ItemBlockMeta extends CompatItemBlock {
-	public ItemBlockMeta(Block block) {
+	public <T extends Block & IMetaBlockName> ItemBlockMeta(T block) {
 		super(block);
-		if (!(block instanceof IMetaBlockName)) {
-            throw new IllegalArgumentException(String.format("The given Block %s is not an instance of ISpecialBlockName!", block.getUnlocalizedName()));
-        }
         setMaxDamage(0);
         setHasSubtypes(true);
 	}

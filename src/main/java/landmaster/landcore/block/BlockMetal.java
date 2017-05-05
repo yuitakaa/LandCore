@@ -3,6 +3,7 @@ package landmaster.landcore.block;
 import java.util.*;
 
 import landmaster.landcore.*;
+import landmaster.landcore.api.block.IMetaBlockName;
 import landmaster.landcore.util.*;
 import mcjty.lib.compat.*;
 import net.minecraft.block.material.*;

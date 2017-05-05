@@ -1,4 +1,4 @@
-package landmaster.landcore.block;
+package landmaster.landcore.api.block;
 
 import net.minecraft.item.*;
 
