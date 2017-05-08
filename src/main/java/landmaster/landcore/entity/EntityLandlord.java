@@ -202,14 +202,14 @@ public class EntityLandlord extends EntityMob {
 
                     if (this.attackStep > 1)
                     {
-                        float f = MathHelper.sqrt_float(MathHelper.sqrt_double(d0)) * 0.5F;
+                        float f = MathHelper.sqrt(MathHelper.sqrt(d0)) * 0.5F;
                         this.landlord.getEntityWorld().playEvent((EntityPlayer)null, 1018, new BlockPos((int)this.landlord.posX, (int)this.landlord.posY, (int)this.landlord.posZ), 0);
 
                         for (int i = 0; i < 1; ++i)
                         {
                         	EntityFireball fireball = new EntityLandlordMagicFireball(this.landlord.getEntityWorld(), this.landlord, d1 + this.landlord.getRNG().nextGaussian() * (double)f, d2, d3 + this.landlord.getRNG().nextGaussian() * (double)f);
                             fireball.posY = this.landlord.posY + (double)(this.landlord.height / 2.0F) + 0.5D;
-                            this.landlord.getEntityWorld().spawnEntityInWorld(fireball);
+                            this.landlord.getEntityWorld().spawnEntity(fireball);
                         }
                     }
                 }

@@ -32,7 +32,7 @@ public class EntityLandlordMagicFireball extends EntityFireball {
      */
     protected void onImpact(RayTraceResult result)
     {
-        if (!this.worldObj.isRemote)
+        if (!this.world.isRemote)
         {
             if (result.entityHit != null)
             {

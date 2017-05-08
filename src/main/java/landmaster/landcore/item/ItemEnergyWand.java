@@ -8,6 +8,7 @@ import javax.annotation.*;
 import landmaster.landcore.*;
 import landmaster.landcore.api.*;
 import landmaster.landcore.entity.*;
+import mcjty.lib.tools.ChatTools;
 import net.minecraft.client.resources.*;
 import net.minecraft.creativetab.*;
 import net.minecraft.entity.*;
@@ -88,11 +89,11 @@ public class ItemEnergyWand extends ItemEnergyBase {
 				break;
 			}
 			efb.posY += 1.0;
-			worldIn.spawnEntityInWorld(efb);
+			worldIn.spawnEntity(efb);
 			return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
 		} else {
 			rotateMode(playerIn.getHeldItem(hand));
-			playerIn.addChatMessage(new TextComponentTranslation("message.wand.change",
+			ChatTools.addChatMessage(playerIn, new TextComponentTranslation("message.wand.change",
 					new TextComponentTranslation(getMode(playerIn.getHeldItem(hand)).getUnlocalizedName())));
 			return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(hand));
 		}

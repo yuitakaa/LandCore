@@ -2,10 +2,9 @@ package landmaster.landcore;
 
 import java.util.*;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.*;
 
-import landmaster.landcore.api.*;
-import landmaster.landcore.api.item.ItemBlockMeta;
+import landmaster.landcore.api.item.*;
 import landmaster.landcore.block.*;
 import landmaster.landcore.command.*;
 import landmaster.landcore.config.*;
@@ -15,6 +14,7 @@ import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
 import mcjty.lib.compat.*;
+import mcjty.lib.tools.BiomeTools;
 import net.minecraft.entity.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
@@ -261,7 +261,7 @@ public class LandCore {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if (Config.spawnLandlord) {
-			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, Tools.getBiomesForType(BiomeDictionary.Type.NETHER));
+			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeTools.getBiomesForType(BiomeDictionary.Type.NETHER));
 		}
 	}
 	

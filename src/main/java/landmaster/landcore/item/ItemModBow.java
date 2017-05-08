@@ -6,6 +6,7 @@ import java.util.stream.*;
 import javax.annotation.*;
 
 import landmaster.landcore.*;
+import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.*;
@@ -35,7 +36,7 @@ public class ItemModBow extends ItemBow {
             public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
                 if (entityIn == null) return 0.0F;
                 ItemStack itemstack = entityIn.getActiveItemStack();
-                return itemstack != null && itemstack.stackSize > 0 && itemstack.getItem() == ItemModBow.this ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 5.0F : 0.0F;
+                return !ItemStackTools.isEmpty(itemstack) && itemstack.getItem() == ItemModBow.this ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 5.0F : 0.0F;
             }
         });
         this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
@@ -72,7 +73,7 @@ public class ItemModBow extends ItemBow {
         					player.getHeldItem(EnumHand.MAIN_HAND) :
         						IntStream.range(0, player.inventory.getSizeInventory())
         						.mapToObj(i -> player.inventory.getStackInSlot(i))
-        						.filter(this::isArrow).findFirst().orElse(null);
+        						.filter(this::isArrow).findFirst().orElse(ItemStackTools.getEmptyStack());
     }
     
     public float getVelocityOfArrow(ItemStack stack) {
@@ -87,12 +88,12 @@ public class ItemModBow extends ItemBow {
             ItemStack itemstack = this.findAmmo(player);
 
             int useDuration = this.getMaxItemUseDuration(stack) - timeLeft;
-            useDuration = ForgeEventFactory.onArrowLoose(stack, world, (EntityPlayer) entityLiving, useDuration, (itemstack != null && itemstack.stackSize > 0) || requiredConditions);
+            useDuration = ForgeEventFactory.onArrowLoose(stack, world, (EntityPlayer) entityLiving, useDuration, !ItemStackTools.isEmpty(itemstack) || requiredConditions);
             if (useDuration < 0)
                 return;
 
-            if ((itemstack != null && itemstack.stackSize > 0) || requiredConditions) {
-                if (itemstack == null || itemstack.stackSize <= 0) {
+            if (!ItemStackTools.isEmpty(itemstack) || requiredConditions) {
+                if (ItemStackTools.isEmpty(itemstack)) {
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
@@ -133,15 +134,15 @@ public class ItemModBow extends ItemBow {
                             entityArrow.pickupStatus = EntityArrow.PickupStatus.CREATIVE_ONLY;
                         }
 
-                        world.spawnEntityInWorld(entityArrow);
+                        world.spawnEntity(entityArrow);
                     }
 
                     world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + arrowVelocity * 0.5F);
 
                     if (!secondaryConditions) {
-                        --itemstack.stackSize;
+                    	ItemStackTools.incStackSize(itemstack, -1);
 
-                        if (itemstack == null || itemstack.stackSize <= 0) {
+                        if (ItemStackTools.isEmpty(itemstack)) {
                             player.inventory.deleteStack(itemstack);
                         }
                     }
