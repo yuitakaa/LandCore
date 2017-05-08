@@ -14,7 +14,7 @@ import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
 import mcjty.lib.compat.*;
-import mcjty.lib.tools.BiomeTools;
+import mcjty.lib.tools.*;
 import net.minecraft.entity.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
@@ -32,7 +32,7 @@ public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
 	public static final String VERSION = "1.3.3.0";
-	public static final String DEPENDS = "required-after:compatlayer";
+	public static final String DEPENDS = "required-after:compatlayer@[0.2.8,)";
 	
 	@Mod.Instance(MODID)
 	public static LandCore INSTANCE;

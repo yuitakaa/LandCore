@@ -18,40 +18,11 @@ import net.minecraft.potion.*;
 import net.minecraft.server.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.feature.*;
-import net.minecraftforge.common.*;
 import net.minecraftforge.fml.common.*;
 
 public class Tools {
-	private static final MethodHandle getBiomesImplM;
-	static {
-		try {
-			MethodHandle temp;
-			try {
-				temp = MethodHandles.lookup().findStatic(BiomeDictionary.class, "getBiomes", MethodType.methodType(Set.class, BiomeDictionary.Type.class));
-			} catch (NoSuchMethodException error) {
-				temp = MethodHandles.lookup().findStatic(BiomeDictionary.class, "getBiomesForType", MethodType.methodType(Biome[].class, BiomeDictionary.Type.class));
-			}
-			getBiomesImplM = temp;
-		} catch (Throwable e) {
-			throw Throwables.propagate(e);
-		}
-	}
-	
-	public static Biome[] getBiomesForType(BiomeDictionary.Type type) {
-		try {
-			Object obj = getBiomesImplM.invoke(type);
-			if (obj instanceof Set) {
-				return ((Set<Biome>)getBiomesImplM.invoke(type)).toArray(new Biome[0]);
-			}
-			return (Biome[])obj;
-		} catch (Throwable e) {
-			throw Throwables.propagate(e);
-		}
-	}
-	
-private static final MethodHandle getCollisionBoundingBoxM;
+	private static final MethodHandle getCollisionBoundingBoxM;
 	
 	static {
 		try {
