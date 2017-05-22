@@ -15,12 +15,11 @@ public class CommonProxy {
 	}
 	
 	public void preInitEntities() {
-		int id = 0;
 		EntityTools.registerModEntity(new ResourceLocation(LandCore.MODID, "landlord"),
-				EntityLandlord.class, "landlord", id++, LandCore.INSTANCE, 64, 3, true, 0xFF0000, 0x000000);
+				EntityLandlord.class, "landlord", 0, LandCore.INSTANCE, 64, 3, true, 0xFF0000, 0x000000);
 		EntityTools.registerModEntity(new ResourceLocation(LandCore.MODID, "landlord_magic_fireball"),
-				EntityLandlordMagicFireball.class, "landlord_magic_fireball", id++, LandCore.INSTANCE,
-				64, 3, true);
+				EntityLandlordMagicFireball.class, "landlord_magic_fireball", 1, LandCore.INSTANCE,
+				64, 1, true);
 		
 		LootTableList.register(EntityLandlord.LOOT);
 	}

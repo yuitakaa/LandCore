@@ -14,14 +14,11 @@ import net.minecraft.init.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fml.client.registry.*;
 
 public class RenderEntityLandlordMagicFireball extends Render<EntityLandlordMagicFireball> {
-	public static final Factory FACTORY = new Factory();
-	
 	private static final float scale = 0.5f;
 
-	protected RenderEntityLandlordMagicFireball(RenderManager renderManager) {
+	public RenderEntityLandlordMagicFireball(RenderManager renderManager) {
 		super(renderManager);
 	}
 
@@ -72,15 +69,6 @@ public class RenderEntityLandlordMagicFireball extends Render<EntityLandlordMagi
     protected ResourceLocation getEntityTexture(EntityLandlordMagicFireball entity)
     {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
-    }
-    
-    public static class Factory implements IRenderFactory<EntityLandlordMagicFireball> {
-
-		@Override
-		public Render<? super EntityLandlordMagicFireball> createRenderFor(RenderManager manager) {
-			return new RenderEntityLandlordMagicFireball(manager);
-		}
-    	
     }
 	
     private static final ResourceLocation SHADOW_TEXTURES = new ResourceLocation("textures/misc/shadow.png");

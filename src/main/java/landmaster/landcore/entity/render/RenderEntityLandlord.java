@@ -17,12 +17,10 @@ import net.minecraft.entity.player.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraftforge.fml.client.registry.*;
 import net.minecraftforge.fml.relauncher.*;
 
 @SideOnly(Side.CLIENT)
 public class RenderEntityLandlord extends RenderLiving<EntityLandlord> {
-	public static final Factory FACTORY = new Factory();
 	private static final ResourceLocation tex = new ResourceLocation(LandCore.MODID, "textures/entity/landlord.png");
 	
 	public RenderEntityLandlord(RenderManager rendermanagerIn) {
@@ -34,15 +32,6 @@ public class RenderEntityLandlord extends RenderLiving<EntityLandlord> {
 	protected ResourceLocation getEntityTexture(@Nonnull EntityLandlord entity) {
 		return tex;
 	}
-	
-	public static class Factory implements IRenderFactory<EntityLandlord> {
-		@Override
-		public Render<? super EntityLandlord> createRenderFor(RenderManager manager) {
-			return new RenderEntityLandlord(manager);
-		}
-	}
-	
-	
 	
 	private static final ResourceLocation SHADOW_TEXTURES = new ResourceLocation("textures/misc/shadow.png");
 	

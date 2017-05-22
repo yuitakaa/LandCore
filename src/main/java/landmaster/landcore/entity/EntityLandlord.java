@@ -2,12 +2,12 @@ package landmaster.landcore.entity;
 
 import javax.annotation.*;
 
-import landmaster.landcore.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.*;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.network.datasync.*;
 import net.minecraft.pathfinding.*;
 import net.minecraft.util.*;
@@ -24,7 +24,7 @@ public class EntityLandlord extends EntityMob {
 	private static final DataParameter<Boolean> CHARGED = EntityDataManager.createKey(
 			EntityLandlord.class, DataSerializers.BOOLEAN);
 	
-	public static final ResourceLocation LOOT = new ResourceLocation(LandCore.MODID, "entities/landlord");
+	public static final ResourceLocation LOOT = new ResourceLocation("landcore:entities/landlord");
 	
 	public EntityLandlord(World worldIn) {
 		super(worldIn);
@@ -39,6 +39,11 @@ public class EntityLandlord extends EntityMob {
     protected void entityInit() {
 		super.entityInit();
 		this.getDataManager().register(CHARGED, false);
+	}
+	
+	@Override
+	protected SoundEvent getAmbientSound() {
+		return SoundEvents.ENTITY_BLAZE_AMBIENT;
 	}
 	
 	@Override
@@ -109,12 +114,13 @@ public class EntityLandlord extends EntityMob {
 	
 	@Override
 	protected void initEntityAI() {
+		this.tasks.addTask(1, new EntityAISwimming(this));
 		this.tasks.addTask(4, new AIFireballAttack(this));
 		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWander(this, 1.0D));
         this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
         this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
 	}
 	

@@ -42,6 +42,7 @@ public class EntityLandlordMagicFireball extends EntityFireball {
                     this.applyEnchantments(this.shootingEntity, result.entityHit);
                     if (result.entityHit instanceof EntityLivingBase) {
                     	((EntityLivingBase)result.entityHit).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 100, 1));
+                    	((EntityLivingBase)result.entityHit).addPotionEffect(new PotionEffect(MobEffects.WITHER, 100, 1));
                     }
                 }
             }
