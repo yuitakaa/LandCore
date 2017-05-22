@@ -3,9 +3,7 @@ package landmaster.landcore.proxy;
 import landmaster.landcore.*;
 import landmaster.landcore.entity.*;
 import landmaster.landcore.entity.render.*;
-import net.minecraft.client.*;
 import net.minecraft.client.renderer.block.model.*;
-import net.minecraft.client.renderer.texture.*;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.event.*;
@@ -45,8 +43,7 @@ public class ClientProxy extends CommonProxy {
 	
 	@SubscribeEvent(priority = EventPriority.LOW)
 	public void createCustomTextures(TextureStitchEvent.Pre event) {
-		TextureMap texturemap = Minecraft.getMinecraft().getTextureMapBlocks();
-		texturemap.registerSprite(new ResourceLocation("landcore:blocks/purple_fire_layer_0"));
-		texturemap.registerSprite(new ResourceLocation("landcore:blocks/purple_fire_layer_1"));
+		event.getMap().registerSprite(new ResourceLocation("landcore:blocks/purple_fire_layer_0"));
+		event.getMap().registerSprite(new ResourceLocation("landcore:blocks/purple_fire_layer_1"));
 	}
 }
