@@ -7,6 +7,7 @@ import javax.annotation.*;
 
 import landmaster.landcore.*;
 import landmaster.landcore.api.*;
+import landmaster.landcore.api.item.ItemEnergyBase;
 import landmaster.landcore.entity.*;
 import mcjty.lib.tools.ChatTools;
 import net.minecraft.client.resources.*;

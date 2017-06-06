@@ -1,4 +1,4 @@
-package landmaster.landcore.util;
+package landmaster.landcore.api.item;
 
 import net.minecraft.item.*;
 

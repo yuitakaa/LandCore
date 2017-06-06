@@ -1,6 +1,5 @@
-package landmaster.landcore.item;
+package landmaster.landcore.api.item;
 
-import landmaster.landcore.util.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.*;
 import net.minecraft.util.*;

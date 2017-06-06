@@ -1,4 +1,4 @@
-package landmaster.landcore.item;
+package landmaster.landcore.api.item;
 
 import cofh.api.energy.*;
 import mcjty.lib.compat.*;
