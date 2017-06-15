@@ -1,22 +1,21 @@
 package landmaster.landcore.block;
 
-import java.util.*;
-
 import landmaster.landcore.*;
-import landmaster.landcore.api.block.IMetaBlockName;
+import landmaster.landcore.api.block.*;
 import landmaster.landcore.util.*;
-import mcjty.lib.compat.*;
+import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.*;
 import net.minecraft.block.state.*;
 import net.minecraft.creativetab.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.relauncher.*;
 
-public class BlockMetal extends CompatBlock implements IMetaBlockName {
+public class BlockMetal extends Block implements IMetaBlockName {
 	public static final PropertyEnum<OreType> TYPE = PropertyEnum.create("type", OreType.class);
 	
 	public BlockMetal() {
@@ -56,9 +55,9 @@ public class BlockMetal extends CompatBlock implements IMetaBlockName {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	protected void clGetSubBlocks(Item itemIn, CreativeTabs tab, List<ItemStack> list) {
+	public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
 		for (int i=0; i<OreType.values().length; ++i) {
-			list.add(new ItemStack(itemIn, 1, i));
+			items.add(new ItemStack(this, 1, i));
 		}
 	}
 	

@@ -18,10 +18,10 @@ public class WorldGen implements IWorldGenerator {
 	@Override
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator,
 			IChunkProvider chunkProvider) {
-		if (!(chunkGenerator instanceof ChunkProviderHell) && !(chunkGenerator instanceof ChunkProviderEnd)) {
+		if (!(chunkGenerator instanceof ChunkGeneratorHell) && !(chunkGenerator instanceof ChunkGeneratorEnd)) { // surface biomes
 			generateOres(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 		}
-		if (!(chunkGenerator instanceof ChunkProviderOverworld) && !(chunkGenerator instanceof ChunkProviderEnd)) {
+		if (world.provider.doesWaterVaporize()) { // for nether and nether-like biomes
 			generateNetherOres(random, chunkX, chunkZ, world, chunkGenerator, chunkProvider);
 		}
 	}

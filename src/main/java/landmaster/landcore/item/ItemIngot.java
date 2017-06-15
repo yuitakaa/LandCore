@@ -1,15 +1,13 @@
 package landmaster.landcore.item;
 
-import java.util.*;
-
 import landmaster.landcore.*;
 import landmaster.landcore.util.*;
-import mcjty.lib.compat.*;
 import net.minecraft.creativetab.*;
 import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.relauncher.*;
 
-public class ItemIngot extends CompatItem {
+public class ItemIngot extends Item {
 	public ItemIngot() {
 		setHasSubtypes(true);
 		setUnlocalizedName("item_ingot").setRegistryName("item_ingot");
@@ -23,9 +21,9 @@ public class ItemIngot extends CompatItem {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	protected void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		for (int i=0; i<OreType.values().length; ++i) {
-			subItems.add(new ItemStack(itemIn, 1, i));
+			subItems.add(new ItemStack(this, 1, i));
 		}
 	}
 }

@@ -6,7 +6,6 @@ import java.util.stream.*;
 import javax.annotation.*;
 
 import landmaster.landcore.*;
-import mcjty.lib.tools.ItemStackTools;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.*;
@@ -15,6 +14,7 @@ import net.minecraft.item.*;
 import net.minecraft.stats.*;
 import net.minecraft.util.*;
 import net.minecraft.client.resources.*;
+import net.minecraft.client.util.*;
 import net.minecraft.enchantment.*;
 import net.minecraft.world.*;
 import net.minecraftforge.event.*;
@@ -36,7 +36,7 @@ public class ItemModBow extends ItemBow {
             public float apply(ItemStack stack, World worldIn, EntityLivingBase entityIn) {
                 if (entityIn == null) return 0.0F;
                 ItemStack itemstack = entityIn.getActiveItemStack();
-                return !ItemStackTools.isEmpty(itemstack) && itemstack.getItem() == ItemModBow.this ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 5.0F : 0.0F;
+                return !itemstack.isEmpty() && itemstack.getItem() == ItemModBow.this ? (float) (stack.getMaxItemUseDuration() - entityIn.getItemInUseCount()) / 5.0F : 0.0F;
             }
         });
         this.addPropertyOverride(new ResourceLocation("pulling"), new IItemPropertyGetter() {
@@ -56,7 +56,7 @@ public class ItemModBow extends ItemBow {
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(I18n.format("tooltip.landcore.bow.bonus", damage));
     }
 	
@@ -73,7 +73,7 @@ public class ItemModBow extends ItemBow {
         					player.getHeldItem(EnumHand.MAIN_HAND) :
         						IntStream.range(0, player.inventory.getSizeInventory())
         						.mapToObj(i -> player.inventory.getStackInSlot(i))
-        						.filter(this::isArrow).findFirst().orElse(ItemStackTools.getEmptyStack());
+        						.filter(this::isArrow).findFirst().orElse(ItemStack.EMPTY);
     }
     
     public float getVelocityOfArrow(ItemStack stack) {
@@ -88,12 +88,12 @@ public class ItemModBow extends ItemBow {
             ItemStack itemstack = this.findAmmo(player);
 
             int useDuration = this.getMaxItemUseDuration(stack) - timeLeft;
-            useDuration = ForgeEventFactory.onArrowLoose(stack, world, (EntityPlayer) entityLiving, useDuration, !ItemStackTools.isEmpty(itemstack) || requiredConditions);
+            useDuration = ForgeEventFactory.onArrowLoose(stack, world, (EntityPlayer) entityLiving, useDuration, !itemstack.isEmpty() || requiredConditions);
             if (useDuration < 0)
                 return;
 
-            if (!ItemStackTools.isEmpty(itemstack) || requiredConditions) {
-                if (ItemStackTools.isEmpty(itemstack)) {
+            if (!itemstack.isEmpty() || requiredConditions) {
+                if (itemstack.isEmpty()) {
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
@@ -140,9 +140,9 @@ public class ItemModBow extends ItemBow {
                     world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + arrowVelocity * 0.5F);
 
                     if (!secondaryConditions) {
-                    	ItemStackTools.incStackSize(itemstack, -1);
+                    	itemstack.shrink(1);
 
-                        if (ItemStackTools.isEmpty(itemstack)) {
+                        if (itemstack.isEmpty()) {
                             player.inventory.deleteStack(itemstack);
                         }
                     }

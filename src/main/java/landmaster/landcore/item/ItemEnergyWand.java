@@ -7,10 +7,10 @@ import javax.annotation.*;
 
 import landmaster.landcore.*;
 import landmaster.landcore.api.*;
-import landmaster.landcore.api.item.ItemEnergyBase;
+import landmaster.landcore.api.item.*;
 import landmaster.landcore.entity.*;
-import mcjty.lib.tools.ChatTools;
 import net.minecraft.client.resources.*;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.*;
@@ -72,7 +72,7 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	}
 	
 	@Override
-	protected ActionResult<ItemStack> clOnItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
 		if (worldIn.isRemote) return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(hand));
 		if (!playerIn.isSneaking()) {
 			if (extractEnergy(playerIn.getHeldItem(hand), ENERGY_COST, true) < ENERGY_COST) {
@@ -83,10 +83,10 @@ public class ItemEnergyWand extends ItemEnergyBase {
 			Entity efb = null;
 			switch (getMode(playerIn.getHeldItem(hand))) {
 			case NORMAL:
-				efb = new EntitySmallFireball(worldIn, playerIn, vec.xCoord, vec.yCoord, vec.zCoord);
+				efb = new EntitySmallFireball(worldIn, playerIn, vec.x, vec.y, vec.z);
 				break;
 			case MAGIC:
-				efb = new EntityLandlordMagicFireball(worldIn, playerIn, vec.xCoord, vec.yCoord, vec.zCoord);
+				efb = new EntityLandlordMagicFireball(worldIn, playerIn, vec.x, vec.y, vec.z);
 				break;
 			}
 			efb.posY += 1.0;
@@ -94,7 +94,7 @@ public class ItemEnergyWand extends ItemEnergyBase {
 			return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(hand));
 		} else {
 			rotateMode(playerIn.getHeldItem(hand));
-			ChatTools.addChatMessage(playerIn, new TextComponentTranslation("message.wand.change",
+			playerIn.sendMessage(new TextComponentTranslation("message.wand.change",
 					new TextComponentTranslation(getMode(playerIn.getHeldItem(hand)).getUnlocalizedName())));
 			return new ActionResult<>(EnumActionResult.PASS, playerIn.getHeldItem(hand));
 		}
@@ -102,7 +102,7 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	protected void clGetSubItems(Item itemIn, CreativeTabs tab, List<ItemStack> subItems) {
+	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		ItemStack empty = new ItemStack(this), full = empty.copy();
 		full.setTagCompound(new NBTTagCompound());
 		full.getTagCompound().setInteger("Energy", CAP);
@@ -112,7 +112,7 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void clAddInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		tooltip.add(TextFormatting.BLUE+I18n.format("tooltip.item_energy_wand.info"));
 		tooltip.add(TextFormatting.GREEN+String.format("%d RF / %d RF", getEnergyStored(stack), getMaxEnergyStored(stack)));
 		tooltip.add(I18n.format("tooltip.item_energy_wand.mode", I18n.format(getMode(stack).getUnlocalizedName())));

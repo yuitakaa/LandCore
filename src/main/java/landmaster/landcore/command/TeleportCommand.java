@@ -1,12 +1,11 @@
 package landmaster.landcore.command;
 
 import landmaster.landcore.api.*;
-import mcjty.lib.compat.*;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.server.*;
 
-public class TeleportCommand extends CompatCommandBase {
+public class TeleportCommand extends CommandBase {
 	@Override
 	public String getName() {
 		return "tpinterdim";

@@ -2,8 +2,9 @@ package landmaster.landcore;
 
 import java.util.*;
 
-import org.apache.commons.lang3.*;
+import org.apache.commons.lang3.StringUtils;
 
+import landmaster.landcore.api.Tools;
 import landmaster.landcore.api.item.*;
 import landmaster.landcore.block.*;
 import landmaster.landcore.command.*;
@@ -13,12 +14,14 @@ import landmaster.landcore.item.*;
 import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
-import mcjty.lib.compat.*;
-import mcjty.lib.tools.*;
+import net.minecraft.creativetab.*;
 import net.minecraft.entity.*;
 import net.minecraft.init.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.*;
+import net.minecraft.util.NonNullList;
+import net.minecraft.world.biome.*;
 import net.minecraftforge.common.*;
 import net.minecraftforge.common.util.*;
 import net.minecraftforge.fml.common.*;
@@ -27,12 +30,12 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.*;
 import net.minecraftforge.oredict.*;
 
-@Mod(modid = LandCore.MODID, name = LandCore.NAME, version = LandCore.VERSION, dependencies = LandCore.DEPENDS, useMetadata = true, acceptedMinecraftVersions = "[1.9,1.12)")
+@Mod(modid = LandCore.MODID, name = LandCore.NAME, version = LandCore.VERSION, dependencies = LandCore.DEPENDS, useMetadata = true, acceptedMinecraftVersions = "[1.12,1.13)")
 public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
-	public static final String VERSION = "1.3.5.0";
-	public static final String DEPENDS = "required-after:compatlayer@[0.2.8,)";
+	public static final String VERSION = "1.4.0.0";
+	public static final String DEPENDS = "required-after:forge@[14.21.0.2325,)";
 	
 	@Mod.Instance(MODID)
 	public static LandCore INSTANCE;
@@ -42,10 +45,10 @@ public class LandCore {
 	
 	public static Config config;
 	
-	public static final CompatCreativeTabs creativeTab = new CompatCreativeTabs(MODID) {
+	public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
 		@Override
-		public Item getItem() {
-			return itemIngot;
+		public ItemStack getTabIconItem() {
+			return new ItemStack(itemIngot);
 		}
 	};
 	
@@ -200,60 +203,77 @@ public class LandCore {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		if (Config.energyWand) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemEnergyWand),
+			GameRegistry.register(new ShapedOreRecipe(itemEnergyWand.getRegistryName(), new ItemStack(itemEnergyWand),
 					"T", "D", "W",
-					'T', "ingotThorium", 'D', "gemDiamond", 'W', "ingotTungsten"));
+					'T', "ingotThorium", 'D', "gemDiamond", 'W', "ingotTungsten")
+					.setRegistryName(itemEnergyWand.getRegistryName()));
 		}
 		
 		if (Config.landiumBow) {
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landiumBow),
+			GameRegistry.register(new ShapedOreRecipe(landiumBow.getRegistryName(), new ItemStack(landiumBow),
 					" IS", "I S", " IS",
-					'I', "ingotLandium", 'S', Items.STRING));
+					'I', "ingotLandium", 'S', Items.STRING, ' ', Ingredient.EMPTY)
+					.setRegistryName(landiumBow.getRegistryName()));
 		}
 		
-		for (int i=0; i<OreType.values().length; ++i) {
-			final String ingotName = "ingot"+StringUtils.capitalize(OreType.values()[i].toString());
+		for (final OreType type: OreType.values()) {
+			final int i = type.ordinal();
+			final String ingotName = "ingot"+StringUtils.capitalize(type.toString());
 			
 			GameRegistry.addSmelting(new ItemStack(blockOre, 1, i),
 					new ItemStack(itemIngot, 1, i), 0.85f);
-			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockMetal, 1, i),
+			GameRegistry.register(new ShapedOreRecipe(blockMetal.getRegistryName(), new ItemStack(blockMetal, 1, i),
 					"III", "III", "III",
-					'I', ingotName));
-			GameRegistry.addShapelessRecipe(new ItemStack(itemIngot, 9, i), new ItemStack(blockMetal, 1, i));
+					'I', ingotName)
+					.setRegistryName(Tools.underscoreSuffix(blockMetal.getRegistryName(), type)));
+			GameRegistry.register(
+					new ShapelessRecipes(itemIngot.getRegistryName().toString(),
+							new ItemStack(itemIngot, 9, i),
+							NonNullList.from(Ingredient.EMPTY, Ingredient.fromStacks(new ItemStack(blockMetal, 1, i))))
+					.setRegistryName(Tools.underscoreSuffix(itemIngot.getRegistryName(), type+"_from_block")));
 			
-			List<Item> tools = toolItems.get(i);
+			final List<Item> tools = toolItems.get(i);
 			if (tools != null) {
-				GameRegistry.addRecipe(new ShapedOreRecipe(tools.get(0),
+				GameRegistry.register(new ShapedOreRecipe(tools.get(0).getRegistryName(), tools.get(0),
 						"I", "I", "S",
-						'I', ingotName, 'S', "stickWood"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(tools.get(1),
+						'I', ingotName, 'S', "stickWood")
+						.setRegistryName(Tools.underscoreSuffix(tools.get(0).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(tools.get(1).getRegistryName(), tools.get(1),
 						"III", " S ", " S ",
-						'I', ingotName, 'S', "stickWood"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(tools.get(2),
+						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(tools.get(1).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(tools.get(2).getRegistryName(), tools.get(2),
 						"II", "IS", " S",
-						'I', ingotName, 'S', "stickWood"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(tools.get(3),
+						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(tools.get(2).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(tools.get(3).getRegistryName(), tools.get(3),
 						"I", "S", "S",
-						'I', ingotName, 'S', "stickWood"));
-				GameRegistry.addRecipe(new ShapedOreRecipe(tools.get(4),
+						'I', ingotName, 'S', "stickWood")
+						.setRegistryName(Tools.underscoreSuffix(tools.get(3).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(tools.get(4).getRegistryName(), tools.get(4),
 						"II", " S", " S",
-						'I', ingotName, 'S', "stickWood"));
+						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(tools.get(4).getRegistryName(), type)));
 			}
 			
-			List<Item> armorParts = armorItems.get(i);
+			final List<Item> armorParts = armorItems.get(i);
 			if (armorParts != null) {
-				GameRegistry.addRecipe(new ShapedOreRecipe(armorParts.get(0),
+				GameRegistry.register(new ShapedOreRecipe(armorParts.get(0).getRegistryName(), armorParts.get(0),
 						"III", "I I",
-						'I', ingotName));
-				GameRegistry.addRecipe(new ShapedOreRecipe(armorParts.get(1),
+						'I', ingotName, ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(armorParts.get(0).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(armorParts.get(1).getRegistryName(), armorParts.get(1),
 						"I I", "III", "III",
-						'I', ingotName));
-				GameRegistry.addRecipe(new ShapedOreRecipe(armorParts.get(2),
+						'I', ingotName, ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(armorParts.get(1).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(armorParts.get(2).getRegistryName(), armorParts.get(2),
 						"III", "I I", "I I",
-						'I', ingotName));
-				GameRegistry.addRecipe(new ShapedOreRecipe(armorParts.get(3),
+						'I', ingotName, ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(armorParts.get(2).getRegistryName(), type)));
+				GameRegistry.register(new ShapedOreRecipe(armorParts.get(3).getRegistryName(), armorParts.get(3),
 						"I I", "I I",
-						'I', ingotName));
+						'I', ingotName, ' ', Ingredient.EMPTY)
+						.setRegistryName(Tools.underscoreSuffix(armorParts.get(3).getRegistryName(), type)));
 			}
 		}
 	}
@@ -261,7 +281,7 @@ public class LandCore {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		if (Config.spawnLandlord) {
-			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeTools.getBiomesForType(BiomeDictionary.Type.NETHER));
+			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toArray(new Biome[0]));
 		}
 	}
 	

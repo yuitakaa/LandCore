@@ -59,7 +59,7 @@ public class EntityLandlord extends EntityMob {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getBrightnessForRender(float par1) {
+	public int getBrightnessForRender() {
 		return 0xF000F0;
 	}
 	
