@@ -158,7 +158,7 @@ public class LandCore {
 			for (int i=0; i<values.length; ++i) {
 				List<Item> tools = toolItems.get(i);
 				if (tools == null) continue;
-				tools.forEach(item -> GameRegistry.register(item));
+				tools.forEach(GameRegistry::register);
 				for (int j=0; j<toolTypes.length; ++j) {
 					proxy.registerItemRenderer(tools.get(j), 0, "tool/"+values[i]+toolTypes[j]);
 				}
@@ -191,7 +191,7 @@ public class LandCore {
 			for (int i=0; i<values.length; ++i) {
 				List<Item> armorParts = armorItems.get(i);
 				if (armorParts == null) continue;
-				armorParts.forEach(item -> GameRegistry.register(item));
+				armorParts.forEach(GameRegistry::register);
 				for (int j=0; j<armorTypes.length; ++j) {
 					proxy.registerItemRenderer(armorParts.get(j), 0, "armor/"+values[i]+armorTypes[j]);
 				}
@@ -212,7 +212,7 @@ public class LandCore {
 		if (Config.landiumBow) {
 			GameRegistry.register(new ShapedOreRecipe(landiumBow.getRegistryName(), new ItemStack(landiumBow),
 					" IS", "I S", " IS",
-					'I', "ingotLandium", 'S', Items.STRING, ' ', Ingredient.EMPTY)
+					'I', "ingotLandium", 'S', Items.STRING)
 					.setRegistryName(landiumBow.getRegistryName()));
 		}
 		
@@ -240,11 +240,11 @@ public class LandCore {
 						.setRegistryName(Tools.underscoreSuffix(tools.get(0).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(tools.get(1).getRegistryName(), tools.get(1),
 						"III", " S ", " S ",
-						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						'I', ingotName, 'S', "stickWood")
 						.setRegistryName(Tools.underscoreSuffix(tools.get(1).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(tools.get(2).getRegistryName(), tools.get(2),
 						"II", "IS", " S",
-						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						'I', ingotName, 'S', "stickWood")
 						.setRegistryName(Tools.underscoreSuffix(tools.get(2).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(tools.get(3).getRegistryName(), tools.get(3),
 						"I", "S", "S",
@@ -252,7 +252,7 @@ public class LandCore {
 						.setRegistryName(Tools.underscoreSuffix(tools.get(3).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(tools.get(4).getRegistryName(), tools.get(4),
 						"II", " S", " S",
-						'I', ingotName, 'S', "stickWood", ' ', Ingredient.EMPTY)
+						'I', ingotName, 'S', "stickWood")
 						.setRegistryName(Tools.underscoreSuffix(tools.get(4).getRegistryName(), type)));
 			}
 			
@@ -260,19 +260,19 @@ public class LandCore {
 			if (armorParts != null) {
 				GameRegistry.register(new ShapedOreRecipe(armorParts.get(0).getRegistryName(), armorParts.get(0),
 						"III", "I I",
-						'I', ingotName, ' ', Ingredient.EMPTY)
+						'I', ingotName)
 						.setRegistryName(Tools.underscoreSuffix(armorParts.get(0).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(armorParts.get(1).getRegistryName(), armorParts.get(1),
 						"I I", "III", "III",
-						'I', ingotName, ' ', Ingredient.EMPTY)
+						'I', ingotName)
 						.setRegistryName(Tools.underscoreSuffix(armorParts.get(1).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(armorParts.get(2).getRegistryName(), armorParts.get(2),
 						"III", "I I", "I I",
-						'I', ingotName, ' ', Ingredient.EMPTY)
+						'I', ingotName)
 						.setRegistryName(Tools.underscoreSuffix(armorParts.get(2).getRegistryName(), type)));
 				GameRegistry.register(new ShapedOreRecipe(armorParts.get(3).getRegistryName(), armorParts.get(3),
 						"I I", "I I",
-						'I', ingotName, ' ', Ingredient.EMPTY)
+						'I', ingotName)
 						.setRegistryName(Tools.underscoreSuffix(armorParts.get(3).getRegistryName(), type)));
 			}
 		}
