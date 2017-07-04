@@ -103,11 +103,13 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
-		ItemStack empty = new ItemStack(this), full = empty.copy();
-		full.setTagCompound(new NBTTagCompound());
-		full.getTagCompound().setInteger("Energy", CAP);
-		subItems.add(empty);
-		subItems.add(full);
+		if (this.isInCreativeTab(tab)) {
+			ItemStack empty = new ItemStack(this), full = empty.copy();
+			full.setTagCompound(new NBTTagCompound());
+			full.getTagCompound().setInteger("Energy", CAP);
+			subItems.add(empty);
+			subItems.add(full);
+		}
 	}
 	
 	@SideOnly(Side.CLIENT)
