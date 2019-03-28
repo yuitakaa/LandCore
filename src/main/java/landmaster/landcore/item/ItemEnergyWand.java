@@ -39,7 +39,7 @@ public class ItemEnergyWand extends ItemEnergyBase {
 	public ItemEnergyWand() {
 		super(CAP, MAX_INPUT, ENERGY_COST);
 		setMaxStackSize(1);
-		setUnlocalizedName("item_energy_wand").setRegistryName("item_energy_wand");
+		setTranslationKey("item_energy_wand").setRegistryName("item_energy_wand");
 		setCreativeTab(LandCore.creativeTab);
 	}
 	

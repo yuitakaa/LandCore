@@ -10,13 +10,13 @@ import net.minecraftforge.fml.relauncher.*;
 public class ItemIngot extends Item {
 	public ItemIngot() {
 		setHasSubtypes(true);
-		setUnlocalizedName("item_ingot").setRegistryName("item_ingot");
+		setTranslationKey("item_ingot").setRegistryName("item_ingot");
 		setCreativeTab(LandCore.creativeTab);
 	}
 	
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
-		return super.getUnlocalizedName() + "." + OreType.values()[stack.getMetadata()];
+	public String getTranslationKey(ItemStack stack) {
+		return super.getTranslationKey() + "." + OreType.values()[stack.getMetadata()];
 	}
 	
 	@SideOnly(Side.CLIENT)

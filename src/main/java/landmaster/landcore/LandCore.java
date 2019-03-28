@@ -12,6 +12,7 @@ import landmaster.landcore.command.*;
 import landmaster.landcore.config.*;
 import landmaster.landcore.entity.*;
 import landmaster.landcore.item.*;
+import landmaster.landcore.net.*;
 import landmaster.landcore.proxy.*;
 import landmaster.landcore.util.*;
 import landmaster.landcore.world.*;
@@ -39,7 +40,7 @@ import net.minecraftforge.oredict.*;
 public class LandCore {
 	public static final String MODID = "landcore";
 	public static final String NAME = "LandCore";
-	public static final String VERSION = "1.5.0.0";
+	public static final String VERSION = "1.5.0.1";
 	public static final String DEPENDS = "required-after:forge@[14.21.1.2387,);after:redstoneflux";
 	
 	@Mod.Instance(MODID)
@@ -52,7 +53,7 @@ public class LandCore {
 	
 	public static final CreativeTabs creativeTab = new CreativeTabs(MODID) {
 		@Override
-		public ItemStack getTabIconItem() {
+		public ItemStack createIcon() {
 			return new ItemStack(itemIngot);
 		}
 	};
@@ -124,14 +125,14 @@ public class LandCore {
 			OreType[] values = OreType.values();
 			for (int i=0; i<values.length; ++i) {
 				proxy.registerItemRenderer(Item.getItemFromBlock(blockOre), i,
-						blockOre.getRegistryName().getResourcePath(), "type="+values[i]);
+						blockOre.getRegistryName().getPath(), "type="+values[i]);
 				OreDictionary.registerOre("ore"+StringUtils.capitalize(values[i].toString()),
 						new ItemStack(blockOre, 1, i));
 				proxy.registerItemRenderer(itemIngot, i, values[i]+"ingot");
 				OreDictionary.registerOre("ingot"+StringUtils.capitalize(values[i].toString()),
 						new ItemStack(itemIngot, 1, i));
 				proxy.registerItemRenderer(Item.getItemFromBlock(blockMetal), i,
-						blockMetal.getRegistryName().getResourcePath(), "type="+values[i]);
+						blockMetal.getRegistryName().getPath(), "type="+values[i]);
 				OreDictionary.registerOre("block"+StringUtils.capitalize(values[i].toString()),
 						new ItemStack(blockMetal, 1, i));
 			}
@@ -279,6 +280,7 @@ public class LandCore {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		PacketHandler.init();
 		if (Config.spawnLandlord) {
 			EntityRegistry.addSpawn(EntityLandlord.class, 14, 1, 3, EnumCreatureType.MONSTER, BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toArray(new Biome[0]));
 		}

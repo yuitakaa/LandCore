@@ -45,7 +45,7 @@ public class ItemModBow extends ItemBow {
                 return entityIn != null && entityIn.isHandActive() && entityIn.getActiveItemStack() == stack ? 1.0F : 0.0F;
             }
         });
-        this.setUnlocalizedName(name).setRegistryName(name);
+        this.setTranslationKey(name).setRegistryName(name);
         this.setCreativeTab(LandCore.creativeTab);
 	}
 	
@@ -107,7 +107,7 @@ public class ItemModBow extends ItemBow {
                         EntityArrow entityArrow = itemarrow.createArrow(world, itemstack, player);
 
                         float newArrowVelocity = arrowVelocity * getVelocityOfArrow(stack);
-                        entityArrow.setAim(player, player.rotationPitch, player.rotationYaw, 0.0F, newArrowVelocity, 1.0F);
+                        entityArrow.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, newArrowVelocity, 1.0F);
 
                         if (newArrowVelocity == 0) {
                             world.playSound(null, player.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.NEUTRAL, 0.4F, 1.0F);

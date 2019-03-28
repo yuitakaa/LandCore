@@ -26,7 +26,7 @@ public class BlockOre extends Block implements IMetaBlockName {
 		setHarvestLevel("pickaxe", 1, getDefaultState().withProperty(TYPE, OreType.THORIUM));
 		setHarvestLevel("pickaxe", 2, getDefaultState().withProperty(TYPE, OreType.TUNGSTEN));
 		setHarvestLevel("pickaxe", 3, getDefaultState().withProperty(TYPE, OreType.LANDIUM));
-		setUnlocalizedName("block_ore").setRegistryName("block_ore");
+		setTranslationKey("block_ore").setRegistryName("block_ore");
 		setCreativeTab(LandCore.creativeTab);
 	}
 	

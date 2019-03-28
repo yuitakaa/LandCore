@@ -23,7 +23,7 @@ public class BlockMetal extends Block implements IMetaBlockName {
 		setHarvestLevel("pickaxe", -1);
 		setHardness(5);
 		setDefaultState(blockState.getBaseState().withProperty(TYPE, OreType.THORIUM));
-		setUnlocalizedName("block_metal").setRegistryName("block_metal");
+		setTranslationKey("block_metal").setRegistryName("block_metal");
 		setCreativeTab(LandCore.creativeTab);
 	}
 	
